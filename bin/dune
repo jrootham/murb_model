@@ -1,0 +1,4 @@
+(executable
+ (public_name murb_model)
+ (name main)
+ (libraries murb_model))
