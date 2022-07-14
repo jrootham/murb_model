@@ -1,4 +1,4 @@
-open Format
 
-let make_project filename =
-    printf "Project=%s\n" filename
+let of_file filename =
+    project_of_yojson 
+    
