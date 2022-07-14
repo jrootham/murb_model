@@ -1,4 +1,3 @@
-open Format
 
 let make_project filename =
-    printf "Project=%s\n" filename
+    Project_j.project_of_string read_whole_file filename

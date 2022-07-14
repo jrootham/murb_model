@@ -1,0 +1,8 @@
+(*
+	Specification  of project json files
+*)
+
+type project =
+{
+	capital : float
+}

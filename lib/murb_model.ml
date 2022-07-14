@@ -36,8 +36,8 @@ let command () =
 
     if validate !years !runs !context_file !project_file !output_file !tmp 
     then
-        let _ = Project.make_project !project_file in
-        printf "Years=%d runs=%d Context=%s Project=%s output=%s\n" !years !runs !context_file !project_file !output_file
+        let project = Project.make_project !project_file in
+        printf "Years=%d runs=%d Context=%s Capital=%f output=%s\n" !years !runs !context_file project.capital !output_file
     else
         Arg.usage speclist usage_msg
 
