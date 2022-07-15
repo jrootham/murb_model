@@ -1,0 +1,1 @@
+dune exec murb_model -- -r 1 -y 10 -c context.json -p project.json -o project.csv
