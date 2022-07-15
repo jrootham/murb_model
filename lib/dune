@@ -1,2 +1,5 @@
 (library
- (name murb_model))
+ (name murb_model)
+ (preprocess (pps ppx_yojson_conv))
+ (libraries yojson core))
+ 
