@@ -1,9 +1,0 @@
-(*
-	Specification  of context json files
-*)
-
-type context =
-{
-	interest : float
-}
-

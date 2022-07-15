@@ -1,3 +1,11 @@
+open Core
 
-let make_project filename =
-    Project_j.project_of_string read_whole_file filename
+type t =
+{
+    capital : float
+} [@@deriving of_yojson]
+
+let of_file filename =
+    In_channel.read_all filename
+    |> Yojson.Safe.from_string 
+    |> t_of_yojson

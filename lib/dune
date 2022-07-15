@@ -1,27 +1,5 @@
 (library
- (name murb_model))
-
-(rule
- (targets project_j.ml
-          project_j.mli)
- (deps    project.atd biniou)
- (action  (run atdgen -j -j-std %{deps})))
-
-(rule
- (targets project_t.ml
-          project_t.mli)
- (deps    project.atd)
- (action  (run atdgen -t %{deps})))
-
- (rule
- (targets context_j.ml
-          context_j.mli)
- (deps    context.atd biniou)
- (action  (run atdgen -j -j-std %{deps})))
-
-(rule
- (targets context_t.ml
-          context_t.mli)
- (deps    context.atd)
- (action  (run atdgen -t %{deps})))
+ (name murb_model)
+ (preprocess (pps ppx_yojson_conv))
+ (libraries yojson core))
  
