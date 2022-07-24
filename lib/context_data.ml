@@ -2,9 +2,10 @@ open Core
 
 type t =
 {
-    inflation : float
-    delta : float
-} [@@deriving of_yojson]
+    inflation : float;
+    delta : float;
+} 
+[@@deriving yojson]
 
 let of_file filename =
     In_channel.read_all filename

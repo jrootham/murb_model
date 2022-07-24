@@ -1,45 +1,47 @@
-open Format
+(* open Printf *)
 
 let command () = 
 
-    let usage_msg = "model -y years -r runs -c context.json -p project.json -o output.csv" in
+    let usage_msg = "model -d runs_directory -y years -r runs -c context.json -p project.json" in
+
+    let validate directory years runs context project do_not =
+        directory <> ""
+        && years > 0 && years <= 100
+        && runs > 0 && runs <= 1000
+        && context <> ""
+        && project <> ""
+        && do_not = ""
+    in
 
     let years = ref 25 in
     let runs = ref 10 in
+    let directory = ref "" in
     let context_file = ref "" in
     let project_file = ref "" in
-    let output_file = ref "" in
 
     let tmp = ref "" in
     let anon_fun bad = tmp := bad  in
 
-    let validate years runs context project output do_not =
-        years > 0 && years <= 100
-        && runs > 0 && runs <= 1000
-        && context <> ""
-        && project <> ""
-        && output <> ""
-        && do_not = ""
-    in
-
     let speclist =
       [
+        ("-d", Arg.Set_string directory, "Runs directory");
         ("-y", Arg.Set_int years, "Number of years");
         ("-r", Arg.Set_int runs, "Number of runs");
         ("-c", Arg.Set_string context_file, "Context file name");
         ("-p", Arg.Set_string project_file, "Project file name");
-        ("-o", Arg.Set_string output_file, "Output file name");
       ]
     in
 
     let () = Arg.parse speclist anon_fun usage_msg in
 
-    if validate !years !runs !context_file !project_file !output_file !tmp 
+    if validate !directory !years !runs !context_file !project_file !tmp 
     then
-        let context = Context.of_file !context_file in
-        let project = Project.of_file !project_file in
+        let context = Context_data.of_file !context_file in
+        let project = Project_data.of_file !project_file in
 
-        printf "Years=%d runs=%d inflation=%f capital=%f output=%s\n" !years !runs context.inflation project.capital !output_file
+        let model = Model.run !runs !years context project in 
+        let path =  File_names.new_path !directory in
+        Model.output path model 
     else
         Arg.usage speclist usage_msg
 

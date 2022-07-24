@@ -1,4 +1,17 @@
 (executable
  (public_name murb_model)
  (name main)
+ (modules main)
+ (libraries murb_model))
+
+(executable
+ (public_name display)
+ (name display)
+ (modules display)
+ (libraries murb_model))
+
+(executable
+ (public_name compare)
+ (name compare)
+ (modules compare)
  (libraries murb_model))
